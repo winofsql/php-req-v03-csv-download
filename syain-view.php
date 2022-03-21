@@ -30,54 +30,54 @@ td,th {
 <script>
 $(function(){
 
-$("#action_save").on( "click", function(){
+    $("#action_save").on( "click", function(){
 
-    // CSV テキスト用変数
-    var csv = "";
+        // CSV テキスト用変数
+        var csv = "";
 
-    // データの行数
-    var cnt = 0;
-    $("table")
-        // 行単位で処理
-        .find("tr").each( function(){
+        // データの行数
+        var cnt = 0;
+        $("table")
+            // 行単位で処理
+            .find("tr").each( function(){
 
-        // TH の最初の一行は処理しない )
-        if ( cnt > 0 ) {
+            // TH の最初の一行は処理しない )
+            if ( cnt > 0 ) {
 
-            // 行内の TD を全て処理
-            $(this).find("td").each(function( col_cnt ){
-                // 先頭列以外はカンマを付加
-                if ( col_cnt != 0 ) {
-                    csv += ",";
-                }
+                // 行内の TD を全て処理
+                $(this).find("td").each(function( col_cnt ){
+                    // 先頭列以外はカンマを付加
+                    if ( col_cnt != 0 ) {
+                        csv += ",";
+                    }
 
-                if ( col_cnt == 0 ) {
-                // Excel で文字列をそのまま取り込めるように( 例. 0001 を文字列として扱う )
-                    csv += "=\"" + $(this).text() + "\"";
-                }
-                else {
-                    csv += "\"" + $(this).text() + "\"";
-                }
-            });
-            // 行の最後に改行
-            csv += "\n";
-        }
+                    if ( col_cnt == 0 ) {
+                    // Excel で文字列をそのまま取り込めるように( 例. 0001 を文字列として扱う )
+                        csv += "=\"" + $(this).text() + "\"";
+                    }
+                    else {
+                        csv += "\"" + $(this).text() + "\"";
+                    }
+                });
+                // 行の最後に改行
+                csv += "\n";
+            }
 
-        // 行数のカウント
-        cnt++;
+            // 行数のカウント
+            cnt++;
+
+        });
+
+        // UTF-8 の CSV を化けずに Excel で開く為
+        saveAs(
+            new Blob(
+                [csv]
+                , {type: "text/csv;charset=" + document.characterSet}
+            )
+            , "syain.csv"
+        );
 
     });
-
-    // UTF-8 の CSV を化けずに Excel で開く為
-    saveAs(
-        new Blob(
-            [csv]
-            , {type: "text/csv;charset=" + document.characterSet}
-        )
-        , "syain.csv"
-    );
-
-});
 
 });
 </Script>
