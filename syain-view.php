@@ -26,6 +26,10 @@ td,th {
 .w100 {
     width: 100px;
 }
+
+.folder {
+    float: right;
+}
 </style>
 <script>
 $(function(){
@@ -87,6 +91,7 @@ $(function(){
 <h3 class="alert alert-primary">
     <?= $title ?>
     <input id="action_save" type="button" value="CSV保存" class="btn btn-primary ms-3">
+    <a href="." class="btn btn-secondary btn-sm folder me-4">フォルダ</a>
 </h3>
 <div id="content">
 
